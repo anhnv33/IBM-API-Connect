@@ -14,4 +14,8 @@ Staging of Product versions is usually carried out (tiến hành) in the API Des
 when we publish a Product, a fixed copy of the Product version is deployed to the target Catalog. The Product version is visible to and subscribable by, the targeted developers or communities.
 when a Product is published in a Catalog, the visibility and subscription settings can be changed for the published version of that Product.
 
-## Deprecated
+## Deprecated (phản đối)
+when we deprecate a Product, the Product version is visible only to developers whose applications are currently subsribed. No new subscriptions to the Plans in the Product are possible.
+
+## Retired (Nghỉ hưu)
+When we retire a Product, the Product version can neither be viewed nor can its Plans be subscribed to, and all of the associated APIs are taken offline.
