@@ -48,10 +48,13 @@ Each Catalog has an associated Developer Portal for exposing the published Produ
 There are two types of organizations: provider and developer. An organization can encompass(bao gồm) a project team, department, or division
 
 Some standard reponsibilities (chuẩn trách nhiệm) within a provider organization include:
-- A provider organization owner who has the full set of access permissions to API Connect functions, and can also commission APIs and track their business adoption.
+- A provider organization owner who has the full set of access permissions to API Connect functions, and can also commission (ủy nhiệm) APIs and track their business adoption.
 - API developer who design and develop APIs, and applications for the provider organization to which they belong
 - An administrator who manages the lifecycles of APIs and publishes API for discovery and use
--
+- A "community" manager who manages the Relationship between the provider organization and organiztion developers, providers information about API usage, and provides support to application developers
+
+Standard responsibilities within a developer organization include:
+- A developer organization owner: add application developers, view Products and API
 
 ### APi Connect Component
 
