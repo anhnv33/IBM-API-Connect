@@ -25,6 +25,17 @@ Cross-components data flows:
 
 #### Relationship between Logical Concepts and Development Components
 
+#### Environment Separation
+It is common for customer to have a sequence of "environment" in their deployment process, with the expectation that the API infrastructure can support each of those steps in an appropriate fashion:
+- Development
+- Functional Test
+- Performance or Load test
+- Pre-production / staging
+- Production
+
+#### Recommended Environment Separation
+
+
 ### Packaging strategy and terminology (thuật ngữ) in API Connect
 #### APIVersion
 An Application Programming Interface (API) is an industry-standard software technology.
