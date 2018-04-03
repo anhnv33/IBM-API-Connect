@@ -1,6 +1,30 @@
 # API Connect concept
 High level understanding of the API management solution
 
+### API Connect: Overview
+API Connect provides a range of powerful capabilities through which you can discover or define your API, implement that API to connect with your existing backend services or create new microservices to expose data assets.
+
+API Connect Deployment components:
+
+![shot_180403_140535](https://user-images.githubusercontent.com/14268190/38234640-a747d9b4-3748-11e8-8034-d1acd401ad29.png)
+
+Cross-components data flows:
+
+![shot_180403_142858](https://user-images.githubusercontent.com/14268190/38235432-5fcc6156-374b-11e8-8656-a769939c1670.png)
+
+#### User roles:
+- Cloud Manager role - the system administrators who deploy and configure the infrastructure that makes up the solution. These users work mainly in the Cloud Manager user interface or with the appliance command-line.
+
+- API Developer - design and implements the APIs that will be exposed through the product. Works mainly with the API connect toolkit installed on their laptop
+
+- Product Manager - reponsible for publishing API Products to a Catalog when they are ready to be comsumed. Work mainly in the API Manager user interface on the Management server, or with the API Connect Toolkit command-line interface
+
+- Community Manager - manages the set of Developer Organizations, Applications and Subscriptions that consume the published Products. Work mainly in the Community section of the Catalog in the API Manager user interface
+
+- Application Developer - implements the Application that consumes the APIs. Discovers and subscribes to APIs through the Developer Portal and then writes the applications that invokes the APIs through API Gateway.
+
+#### Relationship between Logical Concepts and Development Components
+
 ### Packaging strategy and terminology (thuật ngữ) in API Connect
 #### APIVersion
 An Application Programming Interface (API) is an industry-standard software technology.
