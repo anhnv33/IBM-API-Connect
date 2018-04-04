@@ -35,6 +35,52 @@ It is common for customer to have a sequence of "environment" in their deploymen
 
 #### Recommended Environment Separation
 
+#### Recommended Practice for API Development and Promotion
+![image](https://user-images.githubusercontent.com/14268190/38245069-ea6a6f4a-3766-11e8-9800-2bddee3fbc0d.png)
+
+The automated delivery pipeline typically includes the following steps as shown in this picture.
+- API developer commits the file representing the changes they have made from their local filesystem to a source code control systems
+- A plugin to the source code control system provides the ability to trigger a notification (or a job) when file changes are detected
+- A job executes which extracts the source code onto the job server
+- The job executes which extracts the source code onto the job server
+- The job executes a script which uses the Developer Toolkit CLI to publish the Product to the target API Connect Cloud
+- The job executes a series of functional verification tests
+- If the test are successful the job might the execute the next job in the cycle, which might deploy and test the changes to the Pre-Production cloud
+
+#### Typical Deployment Patterns
+##### Minimal Development install
+The first deployment most customer undertake is a small "development" installation.
+![image](https://user-images.githubusercontent.com/14268190/38286851-bed9584c-37f1-11e8-8e75-b5dbb5521913.png)
+
+This style of deployment is well suited (phù hợp) for Proof of Concept or simple functional validation scenarios in that it provides all the capability and functionality of the API Connect offering, without the need for the HA or resilience aspects.
+
+##### Single Region with HA
+![image](https://user-images.githubusercontent.com/14268190/38287745-836c1a6a-37f6-11e8-99da-681bbbd47799.png)
+
+Adding high availability for API Connect within a single region is a simple case of deploying multiple instances of each component and configuring appropriate load balancing in
+front of each cluster to route traffic around failures of any individual component as shown in the following diagram
+
+- To provide HA you require a minimum of two servers per cluster but it í common to choose a minimum of three servers so that the failure of any single node still leaves two servers available to process the necessary traffic, which avoids overloading the single remaining server
+- To successully handle the single-node-failure scenario you must ensure that under normal conditions each node has sufficient spare capacity to handle a share of traffic from the failed node(s). For example, in a 3-node deployment each node must nomally run at less than 66% CPU.
+
+Deploying multiple nodes within a cluster provides good protection against the failure of an individual server process but we also need to consider other failure scenarios that may occur within a given region. For example, in a VMWare ESXi deployment each of the servers are a virtual machine running inside the ESXi server, so a failure of that ESXi server will affect all the servers in the cluster.
+
+##### External and Internal API Exposure
+Seperate Gateway service for internal and external traffic
+![image](https://user-images.githubusercontent.com/14268190/38288767-d8cf4f1c-37fc-11e8-901c-a3b72512309c.png)
+
+This approach is used successfully by customers who are comfortable with the following implications of the topology;
+
+- There is a shared Management service and Developer Portal cluster so any problems in those tiers could affect both the external facing and internally facing users at the same time
+
+Customer that are not comfortable with the contitions described above arising the shared Management service can choose to deploy two separate Clouds folowing diagram
+
+![image](https://user-images.githubusercontent.com/14268190/38288980-05b68030-37fe-11e8-9c23-9ccec53b8349.png)
+
+##### Dual Region with High availability
+For on-premises customers the most common production deployment scenario is to have a single cloud clustered across two regions (DC)
+
+![image](https://user-images.githubusercontent.com/14268190/38289030-5737a114-37fe-11e8-95fd-1a9baf419a48.png)
 
 ### Packaging strategy and terminology (thuật ngữ) in API Connect
 #### APIVersion
@@ -65,7 +111,7 @@ A Product in API Connect bundles a set of APIs and Plans into one offering that 
 
 Relationship between Products and Plans:
 - A Plan can belong to only one Product
-- A Product can have multiple Plans that each contain a defferent set of APIs
+- A Product can have multiple Plans that each contain a different set of APIs
 - A Plan in one Product can share APIs with Plans from any other Product
 
 ![shot_180319_164909](https://user-images.githubusercontent.com/14268190/37588669-85033600-2b95-11e8-898e-d095e843b44c.png)
