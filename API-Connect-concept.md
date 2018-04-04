@@ -82,6 +82,40 @@ For on-premises customers the most common production deployment scenario is to h
 
 ![image](https://user-images.githubusercontent.com/14268190/38289030-5737a114-37fe-11e8-95fd-1a9baf419a48.png)
 
+#### Key Points for Multi-Region Deployments
+##### API Gateway
+Attribute|Value
+-----------------| ---------------
+Session affinity | None - requests are stateless
+Load Balancing | Round-robin for both global and local load Balancing
+Persistence | Rate limit data is stored in-memory only - no Persistence
+Replication | Rate limit information is replicated between peers using IP multicast
+Failover behaviour | No failover required unless using AO for front-side load balancing
+Deployment location | Suitable for DMZ deployment if desired
+Cluster sizing | Varies in line with API traffic rate
+
+##### User Interface Traffic
+Attribute|Value
+--------------|-------------------
+Session affinity | Replication of user HTTP Session state exists for API Manager, Cloud Manager and Developer Portal for failover, but recommended to route back to same instance under normal conditions
+Load Balancing | Support recommendation to route back to same instance by configuring both global and local load balancing for session affinity-based load balancing
+Persistence | HTTP session replication is in-memory only
+Replication | HTTP session replication takes places over TCP/IP
+Failover behaviour | N/A
+Deployment location | N/A
+Cluster sizing | N/A
+
+##### Management tier
+Attribute|Value
+--------------|-------------------
+Session affinity | Replication of user HTTP Session state exists for API Manager, Cloud Manager and Developer Portal for failover, but recommended to route back to same instance under normal conditions
+Load Balancing | Support recommendation to route back to same instance by configuring both global and local load balancing for session affinity-based load balancing
+Persistence | Configuration data (APIs, Products, Apps, Subscriptions) in a persistence database. API call and audit analysis data stored in integrated ElasticSearch instance
+Replication | Persistence database uses a primary + multiple secondary model, with fully copy replication. ElasticSearch is a shared replicated data store (partial copy on each node, where suitable)
+Failover behaviour |
+Deployment location | Private or protected zone. Not recommended for deployment in the DMZ
+Cluster sizing | At least two (or three) nodes in each region
+
 ### Packaging strategy and terminology (thuật ngữ) in API Connect
 #### APIVersion
 An Application Programming Interface (API) is an industry-standard software technology.
