@@ -116,6 +116,37 @@ Failover behaviour |
 Deployment location | Private or protected zone. Not recommended for deployment in the DMZ
 Cluster sizing | At least two (or three) nodes in each region
 
+Number of Management servers (300GB disk) | Approximate API call traffic rate | Notes
+-----------------------------------------|--------------------------------|--------------
+2 | 100 million API calls/month | Fully copy of data on each server. Roughly 1kb data storage per API call. 3 months' data stored, so 100GB per month
+3 | 150 million API calls/month | 150GB/month data accumulation, so 450GB data every 90 days. Two copies of each item (primary/replica) so 900GB total data storage required
+4 | 200 million API calls/month |
+5 | 250 million API calls/month |
+
+The following formula (used to generate the table) enables you to calculate the number of management nodes that are required to store the analysis data based on the volume of API calls, disk size and estimated event size:
+
+C = number of API calls/month, in millions (eg 150)
+
+E = Event size, in bytes (eg 1024)
+
+D = Management node disk size, in GB (eg 300)
+
+N = (the answer) The number of Management instances required to store the analysis data
+
+![image](https://user-images.githubusercontent.com/14268190/38301800-e17b6c3a-382a-11e8-82a9-0bbfabad922d.png)
+
+##### Developer Portal
+
+Attribute | Value
+-------------- | ------------------
+Session affinity |
+Load balancing |
+Persistence | Embedded variant of MySQL provides storage for the Drupal content-management items like blogs/forums, as well as local cache for API/Product and developer org/application data
+Replication | Full copy of data in each instance, taking place over standard TCP/IP connectivity
+Failover behaviour |
+Deployment location | Private or protected zone. Not recommended for deployment in the DMZ
+Cluster sizing | Largely driven by HA and regional resilience
+
 ### Packaging strategy and terminology (thuật ngữ) in API Connect
 #### APIVersion
 An Application Programming Interface (API) is an industry-standard software technology.
